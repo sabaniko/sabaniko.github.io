@@ -23,15 +23,22 @@
 		<script src="DeviceOrientationControls.js"></script>
 
     <script>
-
+var raycaster,scopedObj;
+var cursor=new THREE.Vecter2(0,0);
+raycaster=new THREE.Raycaster();
+	    
 // シーンの作成
 var scene = new THREE.Scene();
 // カメラの作成
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 // レンダラーの作成（アンチエイリアス有効）
 var renderer = new THREE.WebGLRenderer( {antialias: true} );
+//ステレオ二眼
+var effect=new THREE.StereoEffect(renderer);
 // レンダラーが描画するキャンバスサイズの設定
 renderer.setSize( window.innerWidth, window.innerHeight );
+//ステレオ
+effect.setSize(window.innerWidth, window.innerHeight);
 // キャンバスをDOMツリーに追加
 document.body.appendChild( renderer.domElement );
 
