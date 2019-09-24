@@ -67,13 +67,41 @@ mesh.rotation.y = Math.PI/2;
 // オブジェクトをシーンに追加
 scene.add( mesh );
 
+//球体の作成
+var target_geometry = new THREE.SphereGeometry(0.25,16,16);
+
+var target_material = new THREE.MeshBasicMaterial({color: 0xffffff});
+	    
+var target_mesh = new THREE.Mesh( target_geometry, target_material );
+	    
+target_mesh.position.x = 5.0;
+	    
+scene.add( target_mash );
+	   
+var targets=[target_mash];
+
 function render(){
 	requestAnimationFrame( render );
 
 	// レンダリング
 	renderer.render(scene,camera);
 
+	effect.render(scene, camera);
+
 	controls.update();
+	
+	raycaster.setFromCamera(sursor,camera);
+	var intersects = raycaster.intersectObjects(targets);
+	if (intersects.length > 0){
+		if(scopedObj != intersects[0].object){
+			if(scopedObj)scopedObj.scale.set(1,1,1);
+			scopedObj=intersects[0].object;
+			scopedObj.scale.set(2,2,2);
+		}
+	}else{
+		if (scopedObj)scopedObj.scale.set(1,1,1);
+		scopedObj = null;
+	}
 }
 render();
 
